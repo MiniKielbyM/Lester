@@ -1,7 +1,5 @@
 
-// eaglercraft opengl 1.3 emulation
-// copyright (c) 2020 calder young
-// creative commons BY-NC 4.0
+// copyright (c) 2020-2023 lax1dude
 
 #line 7
 
@@ -87,21 +85,22 @@ uniform vec3 normalUniform;
 #endif
 #ifdef CC_fog
 uniform vec4 fogColor;
-uniform int fogMode;
-uniform float fogStart;
-uniform float fogEnd;
-uniform float fogDensity;
-uniform float fogPremultiply;
+//X = uniform float fogMode;
+//Y = uniform float fogStart;
+//Z = uniform float fogEnd - fogStart;
+//W = uniform float fogDensity;
+uniform vec4 fogParam;
 #endif
 uniform vec4 colorUniform;
 #ifdef CC_alphatest
 uniform float alphaTestF;
 #endif
 #ifdef CC_TEX_GEN_STRQ
-uniform int textureGenS_M;
-uniform int textureGenT_M;
-uniform int textureGenR_M;
-uniform int textureGenQ_M;
+//uniform int textureGenS_M;
+//uniform int textureGenT_M;
+//uniform int textureGenR_M;
+//uniform int textureGenQ_M;
+uniform ivec4 textureGen_M;
 uniform vec4 textureGenS_V;
 uniform vec4 textureGenT_V;
 uniform vec4 textureGenR_V;
@@ -130,6 +129,8 @@ in vec2 v_texture1;
 
 out vec4 fragColor;
 
+#define TEX_MAT3(mat4In) mat3(mat4In[0].xyw,mat4In[1].xyw,mat4In[3].xyw)
+
 void main(){
 #ifdef CC_a_color
 	vec4 color = colorUniform * v_color;
@@ -143,13 +144,11 @@ void main(){
 	texSrc[1] = v_position;
 	
 	vec4 texPos;
-	texPos.x = dot(texSrc[textureGenS_M], textureGenS_V);
-	texPos.y = dot(texSrc[textureGenT_M], textureGenT_V);
-	texPos.z = dot(texSrc[textureGenR_M], textureGenR_V);
-	texPos.w = dot(texSrc[textureGenQ_M], textureGenQ_V);
-	
+	texPos.x = dot(texSrc[textureGen_M.x], textureGenS_V);
+	texPos.y = dot(texSrc[textureGen_M.y], textureGenT_V);
+	texPos.z = dot(texSrc[textureGen_M.z], textureGenR_V);
+	texPos.w = dot(texSrc[textureGen_M.w], textureGenQ_V);
 	texPos = matrix_t * texPos;
-	
 	color *= texture(tex0, texPos.xy / texPos.w).bgra;
 #ifdef CC_alphatest
 	if(color.a < alphaTestF){
@@ -161,18 +160,18 @@ void main(){
 #ifdef CC_a_texture0
 
 #ifdef CC_patch_anisotropic
-	vec2 uv = (matrix_t * vec4(v_texture0, 0.0, 1.0)).xy;
+	vec2 uv = (TEX_MAT3(matrix_t) * vec3(v_texture0, 1.0)).xy;
 	
 	/* https://bugs.chromium.org/p/angleproject/issues/detail?id=4994 */
 	uv = ((uv * anisotropic_fix) - fract(uv * anisotropic_fix) + 0.5) / anisotropic_fix;
 	
 	vec4 texColor = texture(tex0, uv);
 #else
-	vec4 texColor = texture(tex0, (matrix_t * vec4(v_texture0, 0.0, 1.0)).xy);
+	vec4 texColor = texture(tex0, (TEX_MAT3(matrix_t) * vec3(v_texture0, 1.0)).xy);
 #endif
 
 #else
-	vec4 texColor = texture(tex0, (matrix_t * vec4(texCoordV0, 0.0, 1.0)).xy);
+	vec4 texColor = texture(tex0, (TEX_MAT3(matrix_t) * vec3(texCoordV0, 1.0)).xy);
 #endif
 
 #ifdef CC_swap_rb
@@ -211,7 +210,7 @@ void main(){
 	
 #ifdef CC_fog
 	float dist = sqrt(dot(v_position, v_position));
-	float i = fogMode == 1 ? (dist - fogStart) / (fogEnd - fogStart) : 1.0 - pow(2.718, -(fogDensity * dist));
+	float i = fogParam.x == 1.0 ? (dist - fogParam.y) / fogParam.z : 1.0 - exp(-fogParam.w * dist);
 	color.rgb = mix(color.rgb, fogColor.xyz, clamp(i, 0.0, 1.0) * fogColor.a);
 #endif
 	

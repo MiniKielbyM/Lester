@@ -261,6 +261,7 @@ directConnect.prompt=What would you like to do?
 directConnect.lanWorld=Join LAN World
 directConnect.lanWorldCode=Enter Join Code:
 directConnect.networkSettingsNote=Click 'Network Settings' to add a relay URL
+directConnect.ipGrabNote=Note: The world's owner can get your IP address
 directConnect.serverJoin=Connect to Server
 directConnect.lanWorldJoin=Join World
 directConnect.lanWorldRelay=Network Settings
@@ -279,6 +280,7 @@ lanServer.opened=LAN world opened on $relay$, join code is §a$code$
 lanServer.closed=LAN world closed
 lanServer.pleaseWait=Please Wait...
 lanServer.relayDisconnected=Error: connection to LAN relay was lost, you must re-share the world to invide more people
+lanServer.ipGrabNote=Note: Players joining your world can get your IP address
 
 networkSettings.title=LAN World Relay Servers
 networkSettings.add=Add Relay
@@ -289,6 +291,7 @@ networkSettings.loadDefaults=Load Defaults
 networkSettings.relayTimeout=Connection Timeout:
 networkSettings.relayTimeoutChange=change
 networkSettings.relayTimeoutTitle=Change Connection Timeout
+networkSettings.downloadRelay=Download JAR
 
 addRelay.title=Add New Relay
 addRelay.name=Relay Comment
@@ -514,6 +517,7 @@ texturePack.openFolder=Open texture pack folder
 texturePack.title=Select Texture Pack
 texturePack.folderInfo=(Place texture pack files here)
 texturePack.incompatible=Incompatible
+texturePack.wannaDelete=Do you want to delete this texture pack?
 
 book.pageIndicator=Page %1$s of %2$s
 book.byAuthor=by %1$s
