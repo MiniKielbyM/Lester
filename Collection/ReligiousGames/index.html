@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lester Educational Services - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: .1vw;
+            margin: 0;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #copyright {
+            position: absolute;
+            bottom: -1vh;
+            left: 0;
+            width: 50vw;
+            color: #333;
+            text-align: left;
+            margin: 0;
+        }
+
+        .Collection {
+            width: 7.5vw;
+            aspect-ratio: 1/1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-size: cover;
+            transition: filter 0.3s ease;
+            border-style: solid;
+            border-radius: 1vw;
+            border-color: #333;
+            border-width: .1vw;
+            filter: grayscale(25%);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .Collection:hover {
+            cursor: pointer;
+            filter: grayscale(0%);
+        }
+
+        .Collection p {
+            color: white;
+            padding: 0;
+            margin: 0;
+            font-size: medium;
+            background-color: #33333393;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .Collection p:hover {
+            background-color: #333;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            display: flex;
+
+            margin-top: 10vh;
+        }
+
+        .ad {
+            width: 11vw;
+            height: 80vh;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            margin: 0;
+            position: absolute;
+            bottom: 5vh;
+        }
+
+        #left {
+            left: 0;
+        }
+
+        #right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Religious Games</h1>
+        </header>
+        <div id="left" class="ad">ad</div>
+        <div id="right" class="ad">ad</div>
+        <table>
+            <tr>
+                <td>
+                    <a href="../../Game/" style="background-image: url(/Icons/Games/Doom.jpg);" class="Collection">
+                        <p>Doom</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="../../Game/" style="background-image: url(/Icons/Games/TBOI.jpeg);" class="Collection">
+                        <p>The Binding of Isaac</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="../../Game/SM64/" style="background-image: url(/Icons/Games/SM64.jpg); background-position: 5px;" class="Collection">
+                        <p>Super Mario 64</p>
+                    </a>
+                </td>
+            </tr>
+         </table>
+    </div>
+    <footer id="copyright">
+        <p>&copy; 2024 Lester Corporation, Moeseph Lester</p>
+    </footer>
+</body>
+
+</html>
